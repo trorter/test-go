@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"test-go/src/github/com/trorter/test-go/test"
+)
 
 const constInt int32 = 1
 
@@ -63,4 +67,29 @@ func main() {
 	mm2["mm2Key"] = mm1
 
 	fmt.Println(mm2)
+
+	value, flag := mm1["test"]
+	fmt.Println(value, flag)
+
+	b := rand.Intn(11)
+	println("b=", b)
+
+	if b == 1 {
+		fmt.Println("b is 1")
+	} else {
+		fmt.Println("b is not 1")
+	}
+
+	if name, exist := mm1["mm1Key1"]; exist {
+
+		fmt.Println(
+			"name is",
+			name)
+	}
+
+	for _, value := range slice {
+		fmt.Println(value)
+	}
+
+	fmt.Println(test.A)
 }
