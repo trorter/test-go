@@ -17,7 +17,33 @@ const (
 	three = 3
 )
 
+type Person struct {
+	Name string
+	Age  int
+	Sex  string
+}
+
+func listAsString(list []int) (result string, er error) {
+	if list == nil || len(list) == 0 {
+		return "", fmt.Errorf("list is empty")
+	}
+
+	for _, v := range list {
+		result += strconv.Itoa(v)
+	}
+	return result, nil
+}
+
+func (p Person) Print() {
+	fmt.Println("name=", p.Name, ", age=", p.Age, ", sex=", p.Sex)
+}
+
+func (p *Person) grow(years int) {
+	p.Age += years
+}
+
 func main() {
+
 	v1 := 1
 	var v2 = 2.1
 	var v3 string = "Hello"
@@ -97,6 +123,17 @@ func main() {
 	//test panic and defer and recover
 	panicResult := panicAndDefer()
 	fmt.Println("panicResult=", panicResult)
+
+	//for i := 0; i < 10; i++ {
+	//	defer println(i)
+	//}
+
+	println("=====")
+
+	person1 := Person{}
+	person1.Print()
+	person1.grow(11)
+	person1.Print()
 }
 
 func panicAndDefer() (result string) {
@@ -113,15 +150,4 @@ func panicAndDefer() (result string) {
 	result = "unsuccessful result"
 
 	return result
-}
-
-func listAsString(list []int) (result string, er error) {
-	if list == nil || len(list) == 0 {
-		return "", fmt.Errorf("list is empty")
-	}
-
-	for _, v := range list {
-		result += strconv.Itoa(v)
-	}
-	return result, nil
 }
