@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strconv"
 	"test-go/src/github/com/trorter/test-go/test"
 )
 
@@ -92,4 +93,35 @@ func main() {
 	}
 
 	fmt.Println(test.A)
+
+	//test panic and defer and recover
+	panicResult := panicAndDefer()
+	fmt.Println("panicResult=", panicResult)
+}
+
+func panicAndDefer() (result string) {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered in f", r)
+		}
+	}()
+
+	result = "successful result"
+
+	panic("test panic")
+
+	result = "unsuccessful result"
+
+	return result
+}
+
+func listAsString(list []int) (result string, er error) {
+	if list == nil || len(list) == 0 {
+		return "", fmt.Errorf("list is empty")
+	}
+
+	for _, v := range list {
+		result += strconv.Itoa(v)
+	}
+	return result, nil
 }

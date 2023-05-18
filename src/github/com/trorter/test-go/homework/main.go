@@ -51,18 +51,20 @@ func MergeSlices(floatSlice []float32, intSlice []int32) []int {
 	return result
 }
 
-func GetMapValuesSortedByKey(mm map[int]string) []string {
+func GetMapValuesSortedByKey(initialMap map[int]string) []string {
 	var keys []int
 
-	for k := range mm {
-		keys = append(keys, k)
+	for key := range initialMap {
+		keys = append(keys, key)
 	}
-	sort.Slice(keys, func(i, j int) bool { return keys[i] < keys[j] })
+	sort.Slice(keys, func(i, j int) bool {
+		return keys[i] < keys[j]
+	})
 
 	var result []string
 
-	for _, v := range keys {
-		result = append(result, mm[v])
+	for _, value := range keys {
+		result = append(result, initialMap[value])
 	}
 
 	return result
