@@ -31,6 +31,31 @@ func (p *Person) Grow(years int) {
 	p.Age += years
 }
 
+type iStuff interface {
+	doStuff() string
+}
+
+type realStuff string
+
+func (r realStuff) doStuff() string {
+	return string(r)
+}
+
+type fakeStuff int
+
+func (f fakeStuff) doStuff() string {
+	return "I'm fake"
+}
+
+type complexStuff struct {
+	iStuff
+	name string
+}
+
+func (c complexStuff) doComplexStuff() {
+	fmt.Println(c.name, "=", c.doStuff())
+}
+
 func main() {
 	testPerson1 := Person{
 		Name: "Test1",
@@ -53,4 +78,22 @@ func main() {
 	}
 
 	testSuperHuman.Print()
+
+	println("=========")
+
+	fakeStuff := fakeStuff(1)
+	realStuff := realStuff("realStuff")
+
+	complexFake := complexStuff{
+		iStuff: fakeStuff,
+		name:   "fakeStuff",
+	}
+
+	complexReal := complexStuff{
+		iStuff: realStuff,
+		name:   "realStuff",
+	}
+
+	complexFake.doComplexStuff()
+	complexReal.doComplexStuff()
 }
