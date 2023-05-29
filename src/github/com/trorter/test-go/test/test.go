@@ -1,3 +1,5 @@
-package test
+package main
 
-const A = "aAaAaA"
+func main() {
+	println("Hello, world!")
+}

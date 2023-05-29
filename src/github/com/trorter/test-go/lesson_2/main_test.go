@@ -39,6 +39,9 @@ func TestOfStructures(t *testing.T) {
 	if text := realStuff.doStuff(); text != "realStuff" {
 		t.Error("Expected \"realStuff\", got ", text)
 	}
+}
+
+func TestOfMain(t *testing.T) {
 
 	main()
 }

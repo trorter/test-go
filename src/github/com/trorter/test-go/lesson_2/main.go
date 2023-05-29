@@ -3,9 +3,9 @@ package main
 import "fmt"
 
 type Person struct {
-	Name string
-	Age  int
-	Sex  string
+	Name string `json:"name",xml:"name"`
+	Age  int    `json:"age"`
+	Sex  string `json:"sex"`
 }
 
 type Id struct {
