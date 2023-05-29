@@ -3,14 +3,20 @@ package main
 import (
 	"fmt"
 	"log"
+	"sync"
 )
 
 type Account struct {
+	//sync.Mutex
+	sync.RWMutex
 	balance float32
 }
 
 func (a *Account) Withdraw(amount float32) float32 {
 	log.Printf("Withdraw %f", amount)
+
+	a.Lock()
+	defer a.Unlock()
 
 	if (a.balance - amount) < 0 {
 		log.Printf("Not enough money")
@@ -26,12 +32,18 @@ func (a *Account) Withdraw(amount float32) float32 {
 func (a *Account) Deposit(amount float32) float32 {
 	log.Printf("Deposit %f", amount)
 
+	a.Lock()
+	defer a.Unlock()
+
 	a.balance += amount
 
 	return a.balance
 }
 
 func (a *Account) Balance() float32 {
+	a.RLock()
+	defer a.RUnlock()
+
 	return a.balance
 }
 
@@ -53,9 +65,9 @@ func main() {
 
 	fmt.Scanln()
 
-	println(acc.Balance())
+	fmt.Println("Balance=", acc.Balance())
 
-	closure()
+	//closure()
 
 }
 
